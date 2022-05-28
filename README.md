@@ -6,18 +6,18 @@ The following is a recreation of the [iconex connect sample](https://github.com/
 
 The project can be run using the standard scripts of any project created with 'Create React App':
 
-### `npm start`
+* `npm start`
 
-### `npm test`
+* `npm test`
 
-### `npm run build`
+* `npm run build`
 
-### `npm run eject`
+* `npm run eject`
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 ## Summary
-(NOTE: the following is a simple description taken verbatim from ["iconex connect sample" original repo](https://github.com/icon-project/iconex_chrome_extension/tree/master/docs/iconex_connect)
+(NOTE: the following is a simple description taken verbatim from ["iconex connect sample" original repo](https://github.com/icon-project/iconex_chrome_extension/tree/master/docs/iconex_connect))
 
 A protocol defined for ICONex to message with external web page.
 
