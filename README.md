@@ -1,70 +1,201 @@
-# Getting Started with Create React App
+# ICONEX CONNECT SAMPLE (REACT)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The following is a recreation of the [iconex connect sample](https://github.com/icon-project/iconex_chrome_extension/tree/master/docs/iconex_connect) bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
-In the project directory, you can run:
+The project can be run using the standard scripts of any project created with 'Create React App':
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
 ### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Summary
+(NOTE: the following is a simple description taken verbatim from ["iconex connect sample" original repo](https://github.com/icon-project/iconex_chrome_extension/tree/master/docs/iconex_connect)
 
-### Code Splitting
+A protocol defined for ICONex to message with external web page.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Abstract
+This document describes a way for external web page to request and response for about icon account such as getting icx address, authority for transaction and signature.
 
-### Analyzing the Bundle Size
+## Motivation
+This protocol allows third-party developer to use ICON network through ICONex
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Specification
+You need to implement two part of dispatching event to ICONex and listening event from ICONex using CustomEvent. The type and payload of events is assigned to detail field in CustomEvent.
 
-### Making a Progressive Web App
+*Data in detail field:*
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| type | string | Pre-defined type of events |
+| payload | any | Data required for the request or response. |
 
-### Advanced Configuration
+### Dispatch Event for Requset
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```javascript
+const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST', {
+	detail: {
+		type: '...',
+		payload: {...}
+	}
+});
+window.dispatchEvent(customEvent);
+```
 
-### Deployment
+### Listen Event for Response
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```javascript
+const eventHandler = event => {
+	const { type, payload } = event.detail;
+	switch (type) { ...	}
+}
+window.addEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
+```
 
-### `npm run build` fails to minify
+### Methods
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**HAS_ACCOUNT**
+
+`REQUEST_HAS_ACCOUNT` Requests for whether iconex has any icon wallet.
+
+`RESPONSE_HAS_ACCOUNT` Returns boolean-typed result.
+
+```javascript
+const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST', {
+	detail: {
+		type: 'REQUEST_HAS_ACCOUNT'
+	}
+});
+window.dispatchEvent(customEvent);
+
+const eventHandler = event => {
+	const { type, payload } = event.detail;
+	if (type === 'RESPONSE_HAS_ACCOUNT') {
+		console.log(payload.hasAccount); // true or false
+	}
+}
+window.addEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
+```
+
+**HAS_ADDRESS**
+
+`REQUEST_HAS_ADDRESS` Requests for whether iconex has the icon wallet with specific address.
+
+`RESPONSE_HAS_ADDRESS` Returns boolean-typed result.
+
+```javascript
+const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST', {
+	detail: {
+		type: 'REQUEST_HAS_ADDRESS',
+		payload: 'hx19870922...'
+	}
+});
+window.dispatchEvent(customEvent);
+
+const eventHandler = event => {
+	const { type, payload } = detail
+	if (type === 'RESPONSE_HAS_ADDRESS') {
+		console.log(payload); // true or false
+	}
+}
+window.addEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
+```
+
+**ADDRESS**
+
+`REQUEST_ADDRESS` Requests for the address to use for service.
+
+`RESPONSE_ADDRESS` Returns the icx address selected by user.
+
+```javascript
+const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST', {
+	detail: {
+ 		type: 'REQUEST_ADDRESS'
+	}
+});
+window.dispatchEvent(customEvent);
+
+const eventHandler = event => {
+	const { type, payload } = detail;
+	if (type === 'RESPONSE_ADDRESS') {
+		console.log(payload); // e.g., hx19870922...
+	}
+}
+window.addEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
+```
+
+**JSON-RPC**
+
+`REQUEST_JSON-RPC` Requests for calling standard ICON JSON-RPC API. (User confirmation is required in some cases.)
+
+`RESPONSE_JSON-RPC` Returns the JSON-RPC response.
+
+`CANCEL_JSON-RPC` User cancelled the JSON-RPC request.
+
+```javascript
+const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST', {
+	detail: {
+		type: 'REQUEST_JSON-RPC',
+		payload: {
+			jsonrpc: "2.0",
+			method: "icx_method",
+			id: 6339,
+			params: {
+				from: "hx19870922...",
+				...
+			}
+		}
+	}
+});
+window.dispatchEvent(customEvent);
+
+const eventHandler = event => {
+	const { type, payload } = detail;
+	if (type === 'RESPONSE_JSON-RPC') {
+		console.log(payload); // e.g., {"jsonrpc": "2.0", "id": 6339, "result": { ... }}
+	}
+	else if (type === 'CANCEL_JSON-RPC') {
+		console.error('User cancelled JSON-RPC request')
+	}
+}
+window.addEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
+```
+
+**SIGNING**
+
+`REQUEST_SIGNING` Request for only signing tx hash. (User confirmation is always required.)
+
+`RESPONSE_SIGNING` Returns signature.
+
+`CANCEL_SIGNING` User cancelled the signing request.
+
+```javascript
+const customEvent = new CustomEvent('ICONEX_RELAY_REQUEST', {
+	detail: {
+		type: 'REQUEST_SIGNING',
+		payload: {
+			from: 'hx19870922...',
+			hash: '0x13979...'
+		}
+	}
+});
+window.dispatchEvent(customEvent);
+
+const eventHandler = event => {
+	const { type, payload } = detail
+	if (type === 'RESPONSE_SIGNING') {
+		console.log(payload) // e.g., 'q/dVc3qj4En0GN+...'
+	}
+	else if (type === 'CANCEL_SIGNING') {
+		console.error('User cancelled signing request')
+	}
+}
+window.addEventListener('ICONEX_RELAY_RESPONSE', eventHandler);
+```
