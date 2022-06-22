@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/ICON-login-react-component/static/css/main.1921473d.css",
-    "main.js": "/ICON-login-react-component/static/js/main.6871cfe1.js",
-    "static/js/787.154ea93c.chunk.js": "/ICON-login-react-component/static/js/787.154ea93c.chunk.js",
-    "static/media/logo.svg": "/ICON-login-react-component/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/ICON-login-react-component/index.html",
-    "main.1921473d.css.map": "/ICON-login-react-component/static/css/main.1921473d.css.map",
-    "main.6871cfe1.js.map": "/ICON-login-react-component/static/js/main.6871cfe1.js.map",
-    "787.154ea93c.chunk.js.map": "/ICON-login-react-component/static/js/787.154ea93c.chunk.js.map"
+    "main.css": "/iconex-connect-sample-react/static/css/main.1921473d.css",
+    "main.js": "/iconex-connect-sample-react/static/js/main.54d722c7.js",
+    "static/js/787.154ea93c.chunk.js": "/iconex-connect-sample-react/static/js/787.154ea93c.chunk.js",
+    "static/media/logo.svg": "/iconex-connect-sample-react/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/iconex-connect-sample-react/index.html",
+    "main.1921473d.css.map": "/iconex-connect-sample-react/static/css/main.1921473d.css.map",
+    "main.54d722c7.js.map": "/iconex-connect-sample-react/static/js/main.54d722c7.js.map",
+    "787.154ea93c.chunk.js.map": "/iconex-connect-sample-react/static/js/787.154ea93c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1921473d.css",
-    "static/js/main.6871cfe1.js"
+    "static/js/main.54d722c7.js"
   ]
 }
