@@ -2,7 +2,7 @@
   "name": "iconex-connect-sample-react",
   "version": "0.1.0",
   "private": true,
-"homepage": "https://fidelve.github.io/ICON-login-react-component",
+  "homepage": "https://fidelve.github.io/iconex-connect-sample-react",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
